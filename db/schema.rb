@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_11_142657) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_11_231050) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -27,6 +27,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_11_142657) do
   enable_extension "graphql.pg_graphql"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vault.supabase_vault"
+
+  create_table "months", force: :cascade do |t|
+    t.string "month"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "transactions", force: :cascade do |t|
     t.datetime "created_at", null: false
