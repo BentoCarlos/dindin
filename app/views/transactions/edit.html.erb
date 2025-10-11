@@ -1,0 +1,13 @@
+<div>Editar Transação <%= @transaction.id %></div>
+
+<%= form_with model: @transaction do |form|%>
+
+    <div>
+        <%= form.label :amount_cents %>
+        <%= form.text_field :amount, class: 'currency-input', placeholder: "0.00"%>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<% end%>

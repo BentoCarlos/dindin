@@ -22,25 +22,26 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['DB_DATABASE'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  #database: <%= ENV['DB_DATABASE'] %>
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  username: <%= ENV['DB_USER'] %>
+  #username: <%= ENV['DB_USER'] %>
 
   # The password associated with the PostgreSQL role (username).
-  password: <%= ENV['DB_PASSWORD'] %>
+  #password: "<%= ENV['DB_PASSWORD'] %>"
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: <%= ENV['DB_HOST'] %>
+  #host: <%= ENV['DB_HOST'] %>
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  port: <%= ENV['DB_PORT'] %>
+  #port: <%= ENV['DB_PORT'] %>
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public

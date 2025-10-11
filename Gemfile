@@ -63,5 +63,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'dotenv-rails'
+  gem "dotenv-rails"
 end
+
+gem "money-rails"
