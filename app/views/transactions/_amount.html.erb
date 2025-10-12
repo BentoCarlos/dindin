@@ -1,0 +1,7 @@
+<div id="transaction_amount_<%= transaction.id %>">
+    <% if transaction.amount_cents.present? %>
+        <%= humanized_money_with_symbol transaction.amount %>
+    <% else %>
+        <em>Não informado</em>
+    <% end %>
+</div>

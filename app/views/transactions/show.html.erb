@@ -1,10 +1,8 @@
 <span> ID da transação: <%= @transaction.id %></span>
 
-<% if @transaction.amount_cents.present? %>
-    <div> Valor: <%= humanized_money_with_symbol @transaction.amount %></div>
-<% else %>
-    <span>Valor não informado</span>
-<% end %>
+<%= turbo_stream_from "transaction_#{@transaction.id}" %>
+
+<%= render partial: "transactions/amount", locals: { transaction: @transaction } %>
 
 <div>
     <%= link_to "Editar transação", edit_transaction_path %>
