@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* Estilo do botão: Roxo/Violeta vibrante, sem sombra forte, cantos arredondados */
+.btn-primary {
+  @apply py-2.5 px-4 bg-violet-600 text-white font-medium rounded-xl tracking-wider;
+}
+.btn-primary:hover {
+  @apply bg-violet-700 transition duration-300;
+}
+.btn-primary:focus {
+  @apply outline-none ring-4 ring-violet-300;
+}
+
+/* Estilos de detalhes para o Card */
+.detail-label {
+  /* Rótulo em cinza claro, maiúsculo e espaçado */
+  @apply text-xs font-medium text-gray-500 uppercase tracking-widest;
+}
+
+.detail-value {
+  /* Valor grande e preto, para ser o destaque principal */
+  @apply text-3xl font-bold text-gray-900;
+}
+
+/* Estilo para o CAMPO DE INPUT de valor */
+.currency-input {
+  /* ... outros estilos ... */
+  @apply block border-none p-0 focus:ring-0 focus:outline-none 
+         text-3xl font-bold text-gray-900 placeholder-gray-400 appearance-none 
+         box-border; /* Garante box-sizing: border-box */
+}

@@ -1,8 +1,46 @@
-<h1>Transactions#index</h1>
-<p>Find me in app/views/transactions/index.html.erb</p>
-
-<% @transactions.each do |transaction| %>
-    <div>
-        <%= link_to "Transação " + transaction.id.to_s, transaction %>
+<div class="max-w-xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
+    
+    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+        <h1 class="text-3xl font-semibold text-gray-800">Minhas Transações</h1>
+        
+        <%= link_to "Nova Transação", new_transaction_path, 
+            class: "px-4 py-2 bg-violet-600 text-white font-medium rounded-lg shadow-md hover:bg-violet-700 transition duration-300" 
+        %>
     </div>
-<% end %>
+    
+    <div class="space-y-4">
+        <% if @transactions.any? %>
+            <% @transactions.each do |transaction| %>
+                
+                <%= link_to transaction_path(transaction), class: "block" do %>
+                    
+                    <div class="bg-white p-5 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex justify-between items-center border border-gray-50">
+                        
+                        <div class="flex items-center space-x-4">
+                            <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-500">
+                                #<%= transaction.id %>
+                            </span>
+                            
+                            <div class="text-base font-medium text-gray-700">
+                                Transação #<%= transaction.id %>
+                            </div>
+                        </div>
+
+                        <div class="text-xl font-bold text-violet-600">
+                            <% if transaction.amount_cents.present? %>
+                                <%= humanized_money_with_symbol transaction.amount %>
+                            <% else %>
+                                <span class="text-gray-400 font-medium text-sm italic">Não informado</span>
+                            <% end %>
+                        </div>
+                    </div>
+                    
+                <% end %>
+            <% end %>
+        <% else %>
+            <div class="text-center py-10 text-gray-500 bg-white rounded-xl shadow-md">
+                Nenhuma transação registrada. Comece criando uma nova!
+            </div>
+        <% end %>
+    </div>
+</div>

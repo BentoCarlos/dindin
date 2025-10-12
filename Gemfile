@@ -67,3 +67,5 @@ group :development, :test do
 end
 
 gem "money-rails"
+
+gem "tailwindcss-rails", "~> 4.3"

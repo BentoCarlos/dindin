@@ -1,7 +1,7 @@
-<div id="transaction_amount_<%= transaction.id %>">
+<div id="transaction_amount_<%= transaction.id %>" class="detail-value">
     <% if transaction.amount_cents.present? %>
         <%= humanized_money_with_symbol transaction.amount %>
     <% else %>
-        <em>Não informado</em>
+        <span class="text-gray-400 font-normal text-xl italic">Não informado</span>
     <% end %>
 </div>
