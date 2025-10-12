@@ -1,11 +1,19 @@
-<div class="max-w-xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
+<div class="max-w-screen mx-auto mt-12 px-4 sm:px-6 lg:px-8">
     
     <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
         <h1 class="text-3xl font-semibold text-gray-800">Minhas Transações</h1>
         
-        <%= link_to "Nova Transação", new_transaction_path, 
-            class: "px-4 py-2 bg-violet-600 text-white font-medium rounded-lg shadow-md hover:bg-violet-700 transition duration-300" 
-        %>
+        <div class="flex space-x-4 ml-12">
+            
+            <%= link_to "Nova Transação", new_transaction_path,
+                class: "px-4 py-2 bg-violet-600 text-white font-medium rounded-lg shadow-md hover:bg-violet-700 transition duration-300"
+            %>
+
+            <%= link_to "Cadastrar Categoria", new_transaction_type_path,
+                class: "px-4 py-2 bg-violet-600 text-white font-medium rounded-lg shadow-md hover:bg-violet-700 transition duration-300"
+            %>
+            
+        </div>
     </div>
     
     <div class="space-y-4">

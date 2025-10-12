@@ -10,26 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_11_231050) do
-  # create_schema "auth"
-  # create_schema "extensions"
-  # create_schema "graphql"
-  # create_schema "graphql_public"
-  # create_schema "pgbouncer"
-  # create_schema "realtime"
-  # create_schema "storage"
-  # create_schema "vault"
+ActiveRecord::Schema[8.0].define(version: 2025_10_12_200231) do
+  create_schema "auth"
+  create_schema "extensions"
+  create_schema "graphql"
+  create_schema "graphql_public"
+  create_schema "pgbouncer"
+  create_schema "realtime"
+  create_schema "storage"
+  create_schema "vault"
 
   # These are extensions that must be enabled in order to support this database
-  # enable_extension "extensions.pg_stat_statements"
-  # enable_extension "extensions.pgcrypto"
-  # enable_extension "extensions.uuid-ossp"
-  # enable_extension "graphql.pg_graphql"
-  # enable_extension "pg_catalog.plpgsql"
-  # enable_extension "vault.supabase_vault"
+  enable_extension "extensions.pg_stat_statements"
+  enable_extension "extensions.pgcrypto"
+  enable_extension "extensions.uuid-ossp"
+  enable_extension "graphql.pg_graphql"
+  enable_extension "pg_catalog.plpgsql"
+  enable_extension "vault.supabase_vault"
 
   create_table "months", force: :cascade do |t|
     t.string "month"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transaction_types", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -38,5 +44,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_11_231050) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "amount_cents"
+    t.bigint "transaction_type_id"
+    t.index ["transaction_type_id"], name: "index_transactions_on_transaction_type_id"
   end
+
+  add_foreign_key "transactions", "transaction_types"
 end

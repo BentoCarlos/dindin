@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "transaction_types/index"
   get "transactions/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,4 +17,5 @@ Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
 
   resources :transactions
+  resources :transaction_types
 end

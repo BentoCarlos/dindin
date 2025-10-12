@@ -1,0 +1,49 @@
+<div class="max-w-xs mx-auto mt-12">
+    <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
+        
+        <div class="mb-6 text-2xl font-bold text-gray-900">
+            Nova Categoria
+        </div>
+
+        <% if @transaction_type && @transaction_type.errors.any? %>
+            <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded text-red-700">
+                <% count = @transaction_type.errors.count %>
+                <strong>
+                    <%= count %> <%= word_pluralize(count, "erro") %>
+                    <%= word_pluralize(count, "ocorreu") %> 
+                </strong>
+
+                <ul class="mt-2 list-disc list-inside">
+                <% @transaction_type.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+                </ul>
+            </div>
+        <% end %>        
+        
+        <%= form_with model: @transaction_type, local: true, class: "space-y-6" do |form|%>
+            
+            <div class="p-4 border border-gray-200 rounded-xl 
+                        focus-within:ring-2 focus-within:ring-violet-400 
+                        focus-within:border-violet-400 transition-all duration-200">
+                
+                <%= form.label :name, "Nome", class: "form-label" %>
+                
+                <div class="flex items-center">                    
+                    <%= form.text_field :name, 
+                        class: 'box-border w-full'
+                    %>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <%= form.submit "Criar Categoria", class: "btn-primary cursor-pointer" %>
+            </div>
+            
+        <% end %>
+
+        <div class="mt-4 text-center">
+            <%= link_to "Voltar para a lista", transactions_path, class: "text-sm text-gray-500 hover:text-gray-700" %>
+        </div>
+    </div>
+</div>

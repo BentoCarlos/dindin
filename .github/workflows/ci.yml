@@ -92,6 +92,7 @@ jobs:
           # REDIS_URL: redis://localhost:6379/0
         run: |          
           # 1. Executa os testes
+          bin/rails db:migrate
           bin/rails test
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4

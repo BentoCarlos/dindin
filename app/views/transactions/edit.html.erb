@@ -20,7 +20,7 @@
                     <%= form.text_field :amount, 
                         class: 'currency-input **box-border** **w-full**', 
                         placeholder: "0.00",
-                        value: @transaction.amount.format(symbol: false) 
+                        value: (@transaction.amount.format(symbol: false) if @transaction.amount.present?)
                     %>
                 </div>
             </div>
