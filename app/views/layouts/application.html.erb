@@ -24,8 +24,28 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+        <nav class="flex items-center justify-between w-full h-16 bg-slate-900 border-b border-b-gray-200 p-4">
+            <div>
+                <%= link_to "Início",
+                    transactions_path,
+                    class: "px-4 py-1 bg-violet-600 text-white font-medium rounded shadow-md hover:bg-violet-700 transition duration-300"
+                %>
+            </div>
+            <div class="flex space-x-4 ml-12">
+                
+                <%= link_to "Nova Transação", new_transaction_path,
+                    class: "px-4 py-1 bg-violet-600 text-white font-medium rounded shadow-md hover:bg-violet-700 transition duration-300"
+                %>
+
+                <%= link_to "Cadastrar Categoria", new_transaction_type_path,
+                    class: "px-4 py-1 bg-violet-600 text-white font-medium rounded shadow-md hover:bg-violet-700 transition duration-300"
+                %>
+                
+            </div>          
+        </nav>    
+
+        <main class="h-full w-full">
+            <%= yield %>      
+        </main>
   </body>
 </html>

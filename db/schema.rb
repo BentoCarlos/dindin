@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_12_200231) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_13_210032) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -34,6 +34,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_12_200231) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payment_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "transaction_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -45,8 +51,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_12_200231) do
     t.datetime "updated_at", null: false
     t.integer "amount_cents"
     t.bigint "transaction_type_id"
+    t.bigint "payment_type_id"
+    t.index ["payment_type_id"], name: "index_transactions_on_payment_type_id"
     t.index ["transaction_type_id"], name: "index_transactions_on_transaction_type_id"
   end
 
+  add_foreign_key "transactions", "payment_types"
   add_foreign_key "transactions", "transaction_types"
 end

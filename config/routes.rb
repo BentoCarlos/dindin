@@ -18,4 +18,5 @@ Rails.application.routes.draw do
 
   resources :transactions
   resources :transaction_types
+  root "transactions#index"
 end

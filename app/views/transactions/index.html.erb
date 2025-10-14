@@ -1,28 +1,15 @@
-<div class="max-w-screen mx-auto mt-12 px-4 sm:px-6 lg:px-8">
-    
-    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
-        <h1 class="text-3xl font-semibold text-gray-800">Minhas Transações</h1>
-        
-        <div class="flex space-x-4 ml-12">
-            
-            <%= link_to "Nova Transação", new_transaction_path,
-                class: "px-4 py-2 bg-violet-600 text-white font-medium rounded-lg shadow-md hover:bg-violet-700 transition duration-300"
-            %>
-
-            <%= link_to "Cadastrar Categoria", new_transaction_type_path,
-                class: "px-4 py-2 bg-violet-600 text-white font-medium rounded-lg shadow-md hover:bg-violet-700 transition duration-300"
-            %>
-            
+<div class="flex w-full px-4 sm:px-6 lg:px-8 justify-center">
+    <div class="space-y-4 ml-12 w-1/2 rounded p-8">
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100"> 
+            <h1 class="text-3xl font-semibold text-gray-800">Minhas Transações</h1>
         </div>
-    </div>
-    
-    <div class="space-y-4">
+
         <% if @transactions.any? %>
             <% @transactions.each do |transaction| %>
                 
                 <%= link_to transaction_path(transaction), class: "block" do %>
                     
-                    <div class="bg-white p-5 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex justify-between items-center border border-gray-50">
+                    <div class="bg-white p-5 rounded-xl shadow-lg hover:shadow-xl transition-all hover:bg-purple-50 duration-300 flex justify-between items-center border border-gray-50">
                         
                         <div class="flex items-center space-x-4">
                             <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-500">
@@ -40,6 +27,14 @@
                             <% else %>
                                 <span class="text-gray-400 font-medium text-sm italic">Não informado</span>
                             <% end %>
+                        </div>
+
+                        <div class="flex bg-violet-200 p-1 rounded min-w-32 justify-center font-bold text-sm">
+                          <% if transaction.payment_type.present? %>
+                            <%= transaction.payment_type.name %>
+                          <% else %>
+                            Não informado
+                          <% end%>
                         </div>
                     </div>
                     

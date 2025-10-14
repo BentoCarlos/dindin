@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update ]
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.includes(:payment_type).all
   end
 
   def new
