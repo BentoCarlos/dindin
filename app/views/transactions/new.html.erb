@@ -1,23 +1,38 @@
 <div class="max-w-xs mx-auto mt-12">
     <div class="bg-white p-8 rounded-2xl shadow-xl">
-        
+
         <div class="mb-6 text-2xl font-bold text-gray-900">
             Nova Transação
         </div>
-        
+
         <%= form_with model: @transaction, class: "space-y-6" do |form|%>
-            
-            <div class="p-4 border border-gray-200 rounded-xl 
-                        focus-within:ring-2 focus-within:ring-violet-400 
+
+            <div class="p-4 border border-gray-200 rounded-xl
+                        focus-within:ring-2 focus-within:ring-violet-400
                         focus-within:border-violet-400 transition-all duration-200">
-                
+
+
+                <%= form.label :name, "NOME", class: "form-label" %>
+
+                <div class="flex items-center">
+                    <%= form.text_field :name,
+                        class: 'text-input'
+                    %>
+                </div>
+            </div>
+
+            <div class="p-4 border border-gray-200 rounded-xl
+                        focus-within:ring-2 focus-within:ring-violet-400
+                        focus-within:border-violet-400 transition-all duration-200">
+
+
                 <%= form.label :amount_cents, "VALOR", class: "form-label" %>
-                
+
                 <div class="flex items-center">
                     <span class="text-3xl font-bold text-gray-900 mr-2">R$</span>
-                    
-                    <%= form.text_field :amount, 
-                        class: 'currency-input box-border w-full', 
+
+                    <%= form.text_field :amount,
+                        class: 'currency-input box-border w-full',
                         placeholder: "0.00"
                     %>
                 </div>
@@ -26,7 +41,7 @@
             <div class="pt-2">
                 <%= form.submit "Criar Transação", class: "btn-primary cursor-pointer" %>
             </div>
-            
+
         <% end %>
 
         <div class="mt-4 text-center">
