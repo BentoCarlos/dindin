@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_13_210032) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_06_231508) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_13_210032) do
     t.integer "amount_cents"
     t.bigint "transaction_type_id"
     t.bigint "payment_type_id"
+    t.string "name"
     t.index ["payment_type_id"], name: "index_transactions_on_payment_type_id"
     t.index ["transaction_type_id"], name: "index_transactions_on_transaction_type_id"
   end

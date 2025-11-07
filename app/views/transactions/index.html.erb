@@ -1,24 +1,26 @@
 <div class="flex w-full px-4 sm:px-6 lg:px-8 justify-center">
     <div class="space-y-4 ml-12 w-1/2 rounded p-8">
-        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100"> 
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
             <h1 class="text-3xl font-semibold text-gray-800">Minhas Transações</h1>
         </div>
 
         <% if @transactions.any? %>
             <% @transactions.each do |transaction| %>
-                
+
                 <%= link_to transaction_path(transaction), class: "block" do %>
-                    
+
                     <div class="bg-white p-5 rounded-xl shadow-lg hover:shadow-xl transition-all hover:bg-purple-50 duration-300 flex justify-between items-center border border-gray-50">
-                        
-                        <div class="flex items-center space-x-4">
-                            <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-500">
-                                #<%= transaction.id %>
-                            </span>
-                            
-                            <div class="text-base font-medium text-gray-700">
-                                Transação #<%= transaction.id %>
-                            </div>
+
+                        <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-500">
+                            #<%= transaction.id %>
+                        </span>
+
+                        <div class="text-base font-medium text-gray-700 min-w-24">
+                            <% if transaction.name? %>
+                                <%= transaction.name %>
+                            <% else  %>
+                                Não informado
+                            <% end %>
                         </div>
 
                         <div class="text-xl font-bold text-violet-600">
@@ -37,7 +39,7 @@
                           <% end%>
                         </div>
                     </div>
-                    
+
                 <% end %>
             <% end %>
         <% else %>
