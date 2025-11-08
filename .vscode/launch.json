@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "ruby_lsp",
+            "name": "Rails Server",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/dev server"
+        },
+        {
+            "type": "ruby_lsp",
+            "name": "Debug Current File",
+            "request": "launch",
+            "program": "${file}"
+        },
+        {
+            "type": "ruby_lsp",
+            "name": "Run Test File",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/rspec ${file}"
+        },
+        {
+            "name": "Attach debugger",
+            "type": "ruby_lsp",
+            "request": "attach"
+        }
+    ]
+}
