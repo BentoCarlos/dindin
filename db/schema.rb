@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_06_231508) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_07_222126) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_231508) do
   enable_extension "graphql.pg_graphql"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vault.supabase_vault"
+
+  create_table "installments", force: :cascade do |t|
+    t.bigint "transaction_id", null: false
+    t.integer "portion", null: false
+    t.integer "total_portions", null: false
+    t.date "payment_date", default: -> { "CURRENT_DATE" }, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transaction_id"], name: "index_installments_on_transaction_id"
+  end
 
   create_table "months", force: :cascade do |t|
     t.string "month"
@@ -57,6 +67,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_231508) do
     t.index ["transaction_type_id"], name: "index_transactions_on_transaction_type_id"
   end
 
+  add_foreign_key "installments", "transactions"
   add_foreign_key "transactions", "payment_types"
   add_foreign_key "transactions", "transaction_types"
 end

@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update ]
   def index
-    @transactions = Transaction.includes(:payment_type).all
+    @transactions = Transaction.includes(:payment_type, :installments).all
   end
 
   def new
@@ -10,7 +10,22 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = Transaction.new(transaction_params)
+
     if @transaction.save
+      total_portions = params[:transaction][:total_portions].to_i
+      payment_date = params[:transaction][:payment_date].to_date
+
+      if payment_date.nil?
+        payment_date = Date.today
+      end
+
+      if total_portions >= 1
+        total_portions.times do |i|
+          @transaction.installments.create!(portion: i + 1, total_portions: total_portions, payment_date: payment_date)
+
+          payment_date += 1.months
+        end
+      end
       redirect_to @transaction
     else
       render :new, status: :unprocessable_entity
@@ -25,9 +40,13 @@ class TransactionsController < ApplicationController
 
   def update
     if @transaction.update(transaction_params)
+      # Atualiza parcelas se necessário
+      if params[:transaction][:total_portions].present?
+        @transaction.update_installments(params[:transaction][:total_portions])
+      end
       redirect_to @transaction
     else
-        render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 

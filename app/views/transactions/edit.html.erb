@@ -38,6 +38,23 @@
                 </div>
             </div>
 
+            <div class="p-4 border border-gray-200 rounded-xl
+                        focus-within:ring-2 focus-within:ring-violet-400
+                        focus-within:border-violet-400 transition-all duration-200">
+
+                <%= form.label :total_portions, "PARCELAS", class: "form-label" %>
+
+                <div class="flex items-center space-x-2">
+                    <%= form.number_field :total_portions,
+                        class: 'text-input w-24',
+                        min: 1,
+                        value: @transaction.total_portions,
+                        placeholder: "1"
+                    %>
+                    <span class="text-sm text-gray-500">parcela(s)</span>
+                </div>
+            </div>
+
             <div>
                 <%= form.submit "Update Transaction", class: "btn-primary cursor-pointer" %>
             </div>
