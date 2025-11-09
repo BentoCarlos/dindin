@@ -1,5 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update ]
+  before_action :load_collections, only: %i[new create edit update]
+
   def index
     @transactions = Transaction.includes(:payment_type, :installments).all
   end
@@ -28,6 +30,7 @@ class TransactionsController < ApplicationController
       end
       redirect_to @transaction
     else
+      # load_collections is run by before_action, so @transaction_types and @payment_types are available
       render :new, status: :unprocessable_entity
     end
   end
@@ -46,6 +49,7 @@ class TransactionsController < ApplicationController
       end
       redirect_to @transaction
     else
+      # load_collections is run by before_action for edit/update
       render :edit, status: :unprocessable_entity
     end
   end
@@ -56,6 +60,11 @@ class TransactionsController < ApplicationController
     end
 
     def transaction_params
-      params.require(:transaction).permit(:amount, :name)
+      params.require(:transaction).permit(:amount, :name, :transaction_type_id, :payment_type_id)
+    end
+
+    def load_collections
+      @transaction_types = TransactionType.all
+      @payment_types = PaymentType.all
     end
 end
