@@ -32,20 +32,23 @@
                 %>
             </div>
             <div class="flex space-x-4 ml-12">
-                
+
                 <%= link_to "Nova Transação", new_transaction_path,
                     class: "px-4 py-1 bg-violet-600 text-white font-medium rounded shadow-md hover:bg-violet-700 transition duration-300"
                 %>
 
                 <%= link_to "Cadastrar Categoria", new_transaction_type_path,
+                    data: { turbo_frame: "modal" },
                     class: "px-4 py-1 bg-violet-600 text-white font-medium rounded shadow-md hover:bg-violet-700 transition duration-300"
                 %>
-                
-            </div>          
-        </nav>    
+
+            </div>
+        </nav>
 
         <main class="h-full w-full">
-            <%= yield %>      
+            <%= yield %>
+
+            <%= turbo_frame_tag "modal" %>
         </main>
   </body>
 </html>

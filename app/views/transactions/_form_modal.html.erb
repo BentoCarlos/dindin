@@ -1,0 +1,61 @@
+<div class="modal-backdrop" style="position: fixed; inset: 0; z-index: 40; background-color: rgba(0, 0, 0, 0.45);" onclick="if(event.target === this) document.getElementById('modal').innerHTML = ''"></div>
+<div class="modal" style="position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1.5rem; pointer-events: none;">
+  <div class="modal-content min-h-[60vh] w-full max-w-4xl bg-white rounded-xl shadow-lg border border-gray-100 justify-center" style="pointer-events: auto;">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+      <div>
+        <h2 class="text-2xl font-semibold text-gray-900"><%= local_assigns[:title] || 'Nova Transação' %></h2>
+        <p class="text-sm text-gray-500"><%= local_assigns[:subtitle] || 'Preencha os dados da transação.' %></p>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <%= form_with model: (@transaction || transaction), local: true, class: "w-full" do |f| %>
+        <div class="grid grid-cols-12 gap-x-6 gap-y-4 items-center">
+          <!-- Row: Nome -->
+          <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Nome</div>
+          <div class="col-span-12 md:col-span-9">
+            <%= f.text_field :name, class: "w-full rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-violet-400", placeholder: "Ex: Conta de luz" %>
+          </div>
+
+          <!-- Row: Valor -->
+          <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Valor (R$)</div>
+          <div class="col-span-12 md:col-span-9">
+            <div class="flex items-center">
+              <span class="mr-2 text-gray-700 font-medium">R$</span>
+              <%= f.text_field :amount, class: "w-56 rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-violet-400", placeholder: "0.00" %>
+            </div>
+          </div>
+
+          <!-- Row: Parcelas -->
+          <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Parcelas</div>
+          <div class="col-span-12 md:col-span-9">
+            <%= f.number_field :total_portions, min: 1, value: ((@transaction || transaction).total_portions || 1), class: "w-28 rounded-md border border-gray-200 px-2 py-2 text-center focus:ring-2 focus:ring-violet-400" %>
+          </div>
+
+          <!-- Row: Data de pagamento -->
+          <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Data de pagamento</div>
+          <div class="col-span-12 md:col-span-9">
+            <%= f.date_field :payment_date, class: "w-44 rounded-md border border-gray-200 px-2 py-2 focus:ring-2 focus:ring-violet-400" %>
+          </div>
+
+          <!-- Row: Tipo -->
+          <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Tipo</div>
+          <div class="col-span-12 md:col-span-9">
+            <%= f.select :transaction_type_id, options_from_collection_for_select((@transaction_types || []), :id, :name, (@transaction || transaction).transaction_type_id), { prompt: 'Selecione' }, class: "w-64 rounded-md border border-gray-200 px-2 py-2 focus:ring-2 focus:ring-violet-400" %>
+          </div>
+
+          <!-- Row: Meio de pagamento -->
+          <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Meio de pagamento</div>
+          <div class="col-span-12 md:col-span-9">
+            <%= f.select :payment_type_id, options_from_collection_for_select((@payment_types || []), :id, :name, (@transaction || transaction).payment_type_id), { prompt: 'Selecione' }, class: "w-64 rounded-md border border-gray-200 px-2 py-2 focus:ring-2 focus:ring-violet-400" %>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-end space-x-3">
+          <a href="#" onclick="event.preventDefault(); document.getElementById('modal').innerHTML = ''" class="text-sm text-gray-600 hover:text-gray-800">Cancelar</a>
+          <%= f.submit (local_assigns[:submit_label] || 'Criar Transação'), class: 'inline-flex items-center px-5 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-md text-sm font-medium' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

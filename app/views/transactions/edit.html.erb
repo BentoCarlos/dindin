@@ -1,64 +1,54 @@
-<div class="max-w-xs mx-auto mt-12">
-    <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
-
-        <div class="mb-6 text-2xl font-bold text-gray-900">
-            Editar Transação#<%= @transaction.id %>
+<div class="min-h-[70vh] flex items-start justify-center py-10 bg-transparent px-4">
+    <div class="w-full max-w-4xl bg-white rounded-xl shadow-lg border border-gray-100">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-900">Editar Transação #<%= @transaction.id %></h2>
+                <p class="text-sm text-gray-500">Atualize os dados da transação.</p>
+            </div>
         </div>
 
-        <%= form_with model: @transaction, class: "space-y-6" do |form|%>
-            <div class="p-4 border border-gray-200 rounded-xl
-                        focus-within:ring-2 focus-within:ring-violet-400
-                        focus-within:border-violet-400 transition-all duration-200">
+        <div class="p-6">
+            <%= form_with model: @transaction, local: true, class: "w-full" do |f| %>
+                <div class="grid grid-cols-12 gap-x-6 gap-y-4 items-center">
+                    <!-- Nome -->
+                    <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Nome</div>
+                    <div class="col-span-12 md:col-span-9">
+                        <%= f.text_field :name, class: "w-full rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-violet-400" %>
+                    </div>
 
+                    <!-- Valor -->
+                    <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Valor (R$)</div>
+                    <div class="col-span-12 md:col-span-9">
+                        <div class="flex items-center">
+                            <span class="mr-2 text-gray-700 font-medium">R$</span>
+                            <%= f.text_field :amount, value: (@transaction.amount.format(symbol: false) if @transaction.amount.present?), class: "w-56 rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-violet-400" %>
+                        </div>
+                    </div>
 
-                <%= form.label :name, "NOME", class: "form-label" %>
+                    <!-- Parcelas -->
+                    <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Parcelas</div>
+                    <div class="col-span-12 md:col-span-9">
+                        <%= f.number_field :total_portions, min: 1, value: (@transaction.total_portions || 1), class: "w-28 rounded-md border border-gray-200 px-2 py-2 text-center focus:ring-2 focus:ring-violet-400" %>
+                    </div>
 
-                <div class="flex items-center">
-                    <%= form.text_field :name,
-                        class: 'text-input'
-                    %>
+                    <!-- Tipo -->
+                    <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Tipo</div>
+                    <div class="col-span-12 md:col-span-9">
+                        <%= f.select :transaction_type_id, options_from_collection_for_select((@transaction_types || []), :id, :name, @transaction.transaction_type_id), { prompt: 'Selecione' }, class: "w-64 rounded-md border border-gray-200 px-2 py-2 focus:ring-2 focus:ring-violet-400" %>
+                    </div>
+
+                    <!-- Meio de pagamento -->
+                    <div class="col-span-12 md:col-span-3 text-sm text-gray-700">Meio de pagamento</div>
+                    <div class="col-span-12 md:col-span-9">
+                        <%= f.select :payment_type_id, options_from_collection_for_select((@payment_types || []), :id, :name, @transaction.payment_type_id), { prompt: 'Selecione' }, class: "w-64 rounded-md border border-gray-200 px-2 py-2 focus:ring-2 focus:ring-violet-400" %>
+                    </div>
                 </div>
-            </div>
 
-            <div class="p-4 border border-gray-200 rounded-xl
-                        focus-within:ring-2 focus-within:ring-violet-400
-                        focus-within:border-violet-400 transition-all duration-200">
-
-                <%= form.label :amount_cents, "AMOUNT CENTS", class: "form-label" %>
-
-                <div class="flex items-center">
-
-                    <span class="text-3xl font-bold text-gray-900 mr-2">R$</span>
-
-                    <%= form.text_field :amount,
-                        class: 'currency-input **box-border** **w-full**',
-                        placeholder: "0.00",
-                        value: (@transaction.amount.format(symbol: false) if @transaction.amount.present?)
-                    %>
+                <div class="mt-6 flex items-center justify-end space-x-3">
+                    <%= link_to 'Cancelar', transaction_path(@transaction), class: 'text-sm text-gray-600 hover:text-gray-800' %>
+                    <%= f.submit 'Atualizar Transação', class: 'inline-flex items-center px-5 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-md text-sm font-medium' %>
                 </div>
-            </div>
-
-            <div class="p-4 border border-gray-200 rounded-xl
-                        focus-within:ring-2 focus-within:ring-violet-400
-                        focus-within:border-violet-400 transition-all duration-200">
-
-                <%= form.label :total_portions, "PARCELAS", class: "form-label" %>
-
-                <div class="flex items-center space-x-2">
-                    <%= form.number_field :total_portions,
-                        class: 'text-input w-24',
-                        min: 1,
-                        value: @transaction.total_portions,
-                        placeholder: "1"
-                    %>
-                    <span class="text-sm text-gray-500">parcela(s)</span>
-                </div>
-            </div>
-
-            <div>
-                <%= form.submit "Update Transaction", class: "btn-primary cursor-pointer" %>
-            </div>
-
-        <% end %>
+            <% end %>
+        </div>
     </div>
 </div>
